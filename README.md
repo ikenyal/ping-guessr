@@ -52,4 +52,6 @@ Rebuild the Region dataset (needs AWS credentials):
 
 ## License
 
-Apache-2.0. © 2026 ikenyal
+Code: Apache-2.0. © 2026 ikenyal
+
+The license covers the code in this repository, not third-party data. Region coordinates in `public/regions.json` that come from Amazon Location Service are subject to the AWS Service Terms. The Japan coordinates come from Wikidata (CC0). The map itself is served by Amazon Location Service (© AWS, © HERE).

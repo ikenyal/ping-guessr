@@ -62,6 +62,8 @@ const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
 const esc = (t: string) =>
   t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 const lngLat = (r: Region): LngLat => [r.lon, r.lat];
+// Shift lon so it lies within 180 degrees of ref; keeps bounds and polygons from wrapping the long way round.
+const unwrap = (ref: number, lon: number) => ref + ((((lon - ref) % 360) + 540) % 360) - 180;
 const setData = (id: string, data: FeatureCollection | Feature) =>
   (map.getSource(id) as GeoJSONSource | undefined)?.setData(data);
 const setTodo = (text: string) => { ui.todo.textContent = text; };
@@ -198,7 +200,10 @@ function updateHint() {
     setData('circle', empty);
   } else {
     ui.hint.textContent = `${where}${reach} The Region must be inside the blue circle.`;
-    setData('circle', circle(home, r, { steps: 128, units: 'kilometers' }));
+    const c = circle(home, r, { steps: 128, units: 'kilometers' });
+    const ring = c.geometry.coordinates[0];
+    for (let i = 1; i < ring.length; i++) ring[i][0] = unwrap(ring[i - 1][0], ring[i][0]);
+    setData('circle', c);
   }
 }
 
@@ -300,10 +305,22 @@ function reveal() {
   } else {
     pickPopup.setLngLat(lngLat(p))
       .setHTML(`<b>Your pick: ${esc(p.code)} · ${p.ms} ms</b><br>${esc(p.longName)}`).addTo(map);
-    const b = new maplibregl.LngLatBounds(lngLat(p), lngLat(p)).extend(lngLat(ans));
-    if (home) b.extend(home);
-    map.fitBounds(b,
-      { padding: fitPadding(), maxZoom: 4 });
+    const ref = ans.lon;
+    const pts: LngLat[] = [lngLat(ans), lngLat(p), ...(home ? [home] : [])].map(([lo, la]) => [unwrap(ref, lo), la]);
+    const b = new maplibregl.LngLatBounds(pts[0], pts[0]);
+    for (const q of pts) b.extend(q);
+    const lons = pts.map((q) => q[0]);
+    const lats = pts.map((q) => q[1]);
+    const wide = Math.max(...lons) - Math.min(...lons) > 70 || Math.max(...lats) - Math.min(...lats) > 50;
+    if (wide) {
+      // fitBounds over-zooms on a globe for far-apart points: show the whole hemisphere instead.
+      const pad = fitPadding();
+      const room = Math.min(window.innerWidth - pad.left - pad.right, window.innerHeight - pad.top - pad.bottom);
+      const zoom = 2 + Math.log2(room / 760);
+      map.easeTo({ center: b.getCenter(), zoom, padding: pad });
+    } else {
+      map.fitBounds(b, { padding: fitPadding(), maxZoom: 4 });
+    }
   }
 
   ui.result.innerHTML = `

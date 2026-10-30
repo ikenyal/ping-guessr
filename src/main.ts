@@ -242,6 +242,12 @@ async function newGame() {
     homeMarker.setLngLat(home).addTo(map);
   }
   queue = shuffle(measured);
+  // Dev-only: put chosen Regions first (VITE_DEMO_ORDER=us-west-1,...) to record the demo video.
+  const demo = import.meta.env.DEV ? (import.meta.env.VITE_DEMO_ORDER as string | undefined) : undefined;
+  for (const code of (demo ?? '').split(',').filter(Boolean).reverse()) {
+    const i = queue.findIndex((r) => r.code === code);
+    if (i >= 0) queue.push(queue.splice(i, 1)[0]);
+  }
   nextRound();
 }
 
@@ -438,3 +444,5 @@ fetch('/regions.json')
   .catch(() => setClue('Could not load the Region list.'));
 
 map.on('error', (e) => console.error('[map]', e.error ?? e));
+
+if (import.meta.env.DEV) Object.assign(window, { __pg: { map, measured: () => measured } });

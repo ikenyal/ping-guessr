@@ -1,0 +1,21 @@
+{
+  "name": "ping-guessr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5"
+  },
+  "dependencies": {
+    "@turf/circle": "^7.4.0",
+    "@turf/distance": "^7.4.0",
+    "@turf/great-circle": "^7.4.0",
+    "maplibre-gl": "^6.16.0"
+  }
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Ping Guessr — guess the AWS Region from your ping</title>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="panel">
+      <header>
+        <h1>Ping Guessr</h1>
+        <span id="round"></span>
+        <span id="score"></span>
+        <button id="help" class="icon" aria-label="How to play">?</button>
+      </header>
+      <p id="clue" class="msg">Loading…</p>
+      <p id="todo" class="todo"></p>
+      <p id="hint" class="hint"></p>
+      <p id="result" class="result"></p>
+      <ol id="steps" class="steps">
+        <li>We ping every AWS Region from your browser and show one of the times.</li>
+        <li>Click the Region (dot) you think answered in that time.</li>
+        <li>Press <b>Guess</b>. The closer your Region’s time, the more points. 5 rounds.</li>
+      </ol>
+      <div class="actions">
+        <button id="go" class="primary" disabled>Start</button>
+        <button id="home">Set my location</button>
+        <button id="gps">Use GPS</button>
+      </div>
+      <details>
+        <summary>How it works</summary>
+        <p>Your browser times HTTPS requests to every AWS Region’s public DynamoDB endpoint: one warm-up, five samples, median of the middle three. Each round shows one Region’s time. Pick the Region you think it was. Points = 5,000 × e<sup>−Δ/40</sup>, where Δ is the gap in ms between your pick and the answer.</p>
+        <p>Light in optical fiber covers about 200 km per millisecond, so a round trip of <i>t</i> ms puts the Region within <i>t</i> / 2 × 200 km of you. Extra delays only make that circle bigger, so the answer is always inside it.</p>
+        <p>Region list: AWS Systems Manager public parameters. Coordinates: Amazon Location Service geocoding of an approximate city per Region (AWS doesn’t publish exact sites). Map: Amazon Location Service (<a href="https://docs.aws.amazon.com/location/latest/developerguide/data-attribution.html" target="_blank" rel="noopener">data sources and attribution</a>). Your location stays in your browser.</p>
+        <p>Yes, if you open DevTools you can see which Region we’re pinging. Congratulations, you win.</p>
+      </details>
+      <footer class="credit">© 2026 ikenyal · Map: Amazon Location Service, © AWS, © HERE</footer>
+    </div>
+    <div id="tutorial" class="overlay" hidden>
+      <div class="card" role="dialog" aria-modal="true" aria-labelledby="tut-title">
+        <section data-step>
+          <h2 id="tut-title">Where is this AWS Region?</h2>
+          <p>Your browser sends tiny requests to every AWS Region and times the round trips.</p>
+          <p>Each round shows <b>one</b> of those times. Which Region was it?</p>
+          <p class="demo">183 ms</p>
+        </section>
+        <section data-step hidden>
+          <h2>Small number = close. Big number = far.</h2>
+          <p>Signals can’t travel faster than light, so the time tells you roughly how far away the Region is.</p>
+          <ul class="scale">
+            <li><b>Under 20 ms</b><span>very close to you</span></li>
+            <li><b>50–100 ms</b><span>same part of the world</span></li>
+            <li><b>150 ms or more</b><span>across an ocean</span></li>
+          </ul>
+          <p class="note">Rough guide. Your network adds some delay.</p>
+        </section>
+        <section data-step hidden>
+          <h2>Click a Region, then press Guess</h2>
+          <ol class="steps">
+            <li>Wait while every Region is measured (a few seconds).</li>
+            <li>Click the dot of the Region you think matches the time.</li>
+            <li>Press <b>Guess</b>. You see both Regions’ real times. The closer the times, the more points (up to 5,000). 5 rounds.</li>
+          </ol>
+          <p class="note">At the end you get a map of every Region, colored by how fast it answered you.</p>
+          <p class="note">Tip: “Set my location” draws the farthest the signal could have gone. The answer is always inside that circle.</p>
+        </section>
+        <div class="tut-foot">
+          <div id="tut-dots" class="dots" aria-hidden="true"></div>
+          <button id="tut-skip">Skip</button>
+          <button id="tut-back" hidden>Back</button>
+          <button id="tut-next" class="primary">Next</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

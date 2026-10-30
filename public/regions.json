@@ -1,0 +1,240 @@
+[
+  {
+    "code": "af-south-1",
+    "longName": "Africa (Cape Town)",
+    "city": "Cape Town, South Africa",
+    "lon": 18.42198,
+    "lat": -33.91909
+  },
+  {
+    "code": "ap-east-1",
+    "longName": "Asia Pacific (Hong Kong)",
+    "city": "Hong Kong",
+    "lon": 114.14774,
+    "lat": 22.36022
+  },
+  {
+    "code": "ap-east-2",
+    "longName": "Asia Pacific (Taipei)",
+    "city": "Taipei, Taiwan",
+    "lon": 121.56355,
+    "lat": 25.03737
+  },
+  {
+    "code": "ap-northeast-1",
+    "longName": "Asia Pacific (Tokyo)",
+    "city": "Tokyo, Japan",
+    "lon": 139.691667,
+    "lat": 35.689444
+  },
+  {
+    "code": "ap-northeast-2",
+    "longName": "Asia Pacific (Seoul)",
+    "city": "Seoul, South Korea",
+    "lon": 126.99989,
+    "lat": 37.55886
+  },
+  {
+    "code": "ap-northeast-3",
+    "longName": "Asia Pacific (Osaka)",
+    "city": "Osaka, Japan",
+    "lon": 135.502111,
+    "lat": 34.69375
+  },
+  {
+    "code": "ap-south-1",
+    "longName": "Asia Pacific (Mumbai)",
+    "city": "Mumbai, India",
+    "lon": 72.83484,
+    "lat": 18.94018
+  },
+  {
+    "code": "ap-south-2",
+    "longName": "Asia Pacific (Hyderabad)",
+    "city": "Hyderabad, India",
+    "lon": 78.47081,
+    "lat": 17.3949
+  },
+  {
+    "code": "ap-southeast-1",
+    "longName": "Asia Pacific (Singapore)",
+    "city": "Singapore",
+    "lon": 103.85238,
+    "lat": 1.29087
+  },
+  {
+    "code": "ap-southeast-2",
+    "longName": "Asia Pacific (Sydney)",
+    "city": "Sydney, Australia",
+    "lon": 151.20788,
+    "lat": -33.87072
+  },
+  {
+    "code": "ap-southeast-3",
+    "longName": "Asia Pacific (Jakarta)",
+    "city": "Jakarta, Indonesia",
+    "lon": 106.82649,
+    "lat": -6.17147
+  },
+  {
+    "code": "ap-southeast-4",
+    "longName": "Asia Pacific (Melbourne)",
+    "city": "Melbourne, Australia",
+    "lon": 144.96755,
+    "lat": -37.81736
+  },
+  {
+    "code": "ap-southeast-5",
+    "longName": "Asia Pacific (Malaysia)",
+    "city": "Kuala Lumpur, Malaysia",
+    "lon": 101.69405,
+    "lat": 3.1479
+  },
+  {
+    "code": "ap-southeast-6",
+    "longName": "Asia Pacific (New Zealand)",
+    "city": "Auckland, New Zealand",
+    "lon": 174.76388,
+    "lat": -36.85232
+  },
+  {
+    "code": "ap-southeast-7",
+    "longName": "Asia Pacific (Thailand)",
+    "city": "Bangkok, Thailand",
+    "lon": 100.50483,
+    "lat": 13.75336
+  },
+  {
+    "code": "ca-central-1",
+    "longName": "Canada (Central)",
+    "city": "Montreal, Canada",
+    "lon": -73.55469,
+    "lat": 45.5124
+  },
+  {
+    "code": "ca-west-1",
+    "longName": "Canada West (Calgary)",
+    "city": "Calgary, Canada",
+    "lon": -114.06301,
+    "lat": 51.04532
+  },
+  {
+    "code": "eu-central-1",
+    "longName": "Europe (Frankfurt)",
+    "city": "Frankfurt, Germany",
+    "lon": 8.68341,
+    "lat": 50.11208
+  },
+  {
+    "code": "eu-central-2",
+    "longName": "Europe (Zurich)",
+    "city": "Zurich, Switzerland",
+    "lon": 8.54236,
+    "lat": 47.37918
+  },
+  {
+    "code": "eu-north-1",
+    "longName": "Europe (Stockholm)",
+    "city": "Stockholm, Sweden",
+    "lon": 18.06683,
+    "lat": 59.33257
+  },
+  {
+    "code": "eu-south-1",
+    "longName": "Europe (Milan)",
+    "city": "Milan, Italy",
+    "lon": 9.18185,
+    "lat": 45.468
+  },
+  {
+    "code": "eu-south-2",
+    "longName": "Europe (Spain)",
+    "city": "Madrid, Spain",
+    "lon": -3.68755,
+    "lat": 40.42024
+  },
+  {
+    "code": "eu-west-1",
+    "longName": "Europe (Ireland)",
+    "city": "Dublin, Ireland",
+    "lon": -6.24827,
+    "lat": 53.34807
+  },
+  {
+    "code": "eu-west-2",
+    "longName": "Europe (London)",
+    "city": "London, United Kingdom",
+    "lon": -0.12719,
+    "lat": 51.50643
+  },
+  {
+    "code": "eu-west-3",
+    "longName": "Europe (Paris)",
+    "city": "Paris, France",
+    "lon": 2.3414,
+    "lat": 48.85717
+  },
+  {
+    "code": "il-central-1",
+    "longName": "Israel (Tel Aviv)",
+    "city": "Tel Aviv, Israel",
+    "lon": 34.78953,
+    "lat": 32.08556
+  },
+  {
+    "code": "me-central-1",
+    "longName": "Middle East (UAE)",
+    "city": "Dubai, United Arab Emirates",
+    "lon": 55.30884,
+    "lat": 25.26951
+  },
+  {
+    "code": "me-south-1",
+    "longName": "Middle East (Bahrain)",
+    "city": "Manama, Bahrain",
+    "lon": 50.57604,
+    "lat": 26.22952
+  },
+  {
+    "code": "mx-central-1",
+    "longName": "Mexico (Central)",
+    "city": "Queretaro, Mexico",
+    "lon": -100.39601,
+    "lat": 20.59209
+  },
+  {
+    "code": "sa-east-1",
+    "longName": "South America (Sao Paulo)",
+    "city": "Sao Paulo, Brazil",
+    "lon": -46.65474,
+    "lat": -23.56283
+  },
+  {
+    "code": "us-east-1",
+    "longName": "US East (N. Virginia)",
+    "city": "Ashburn, Virginia, USA",
+    "lon": -77.4827,
+    "lat": 39.05232
+  },
+  {
+    "code": "us-east-2",
+    "longName": "US East (Ohio)",
+    "city": "Columbus, Ohio, USA",
+    "lon": -83.00275,
+    "lat": 39.96199
+  },
+  {
+    "code": "us-west-1",
+    "longName": "US West (N. California)",
+    "city": "San Jose, California, USA",
+    "lon": -121.88542,
+    "lat": 37.33865
+  },
+  {
+    "code": "us-west-2",
+    "longName": "US West (Oregon)",
+    "city": "Boardman, Oregon, USA",
+    "lon": -119.70238,
+    "lat": 45.83987
+  }
+]

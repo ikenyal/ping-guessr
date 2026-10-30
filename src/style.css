@@ -1,0 +1,80 @@
+:root {
+  --bg: #ffffff; --fg: #111827; --muted: #4b5563;
+  --panel: rgba(255, 255, 255, 0.94); --border: #e5e7eb; --card: #ffffff;
+  --accent: #2563eb; --accent-fg: #ffffff;
+  color-scheme: light;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f17; --fg: #e5e7eb; --muted: #9ca3af;
+    --panel: rgba(17, 24, 39, 0.94); --border: #374151; --card: #111827;
+    --accent: #3b82f6; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); }
+#map { position: fixed; inset: 0; }
+#panel {
+  position: fixed;
+  left: max(12px, env(safe-area-inset-left));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  width: min(380px, calc(100vw - 24px)); max-height: 60vh; overflow: auto;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+}
+header { display: flex; align-items: baseline; gap: 10px; }
+h1 { font-size: 1.05rem; margin: 0 auto 0 0; }
+#round, #score { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+#clue { margin: 0.4rem 0; }
+#clue.big { font-size: 2.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+#clue.msg { font-size: 1rem; }
+.hint { color: var(--muted); font-size: 0.9rem; margin: 0.3rem 0; }
+.result { font-size: 0.95rem; margin: 0.3rem 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.6rem 0; }
+button {
+  font: inherit; font-size: 0.9rem; padding: 0.5rem 0.8rem; border-radius: 8px;
+  border: 1px solid var(--border); background: transparent; color: var(--fg); cursor: pointer;
+}
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 600; }
+button:disabled { opacity: 0.5; cursor: default; }
+details { font-size: 0.85rem; color: var(--muted); }
+details p { margin: 0.4rem 0; }
+@media (max-width: 600px) { #panel { left: 8px; right: 8px; width: auto; } }
+.todo { font-weight: 600; color: var(--accent); margin: 0.3rem 0; min-height: 0; }
+.todo:empty { display: none; }
+.steps { margin: 0.4rem 0; padding-left: 1.3rem; font-size: 0.92rem; line-height: 1.5; }
+.steps[hidden] { display: none; }
+button.icon { width: 28px; height: 28px; padding: 0; border-radius: 50%; font-weight: 700; }
+.overlay {
+  position: fixed; inset: 0; z-index: 10; display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.55);
+}
+.overlay[hidden] { display: none; }
+.card {
+  width: min(440px, 100%); max-height: 100%; overflow: auto;
+  background: var(--card); color: var(--fg); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+.card h2 { font-size: 1.25rem; margin: 0 0 0.6rem; }
+.card p { margin: 0.5rem 0; line-height: 1.5; }
+.card .demo { font-size: 2.6rem; font-weight: 700; text-align: center; margin: 0.8rem 0; color: var(--accent); }
+.card .note { font-size: 0.85rem; color: var(--muted); }
+.scale { list-style: none; padding: 0; margin: 0.6rem 0; }
+.scale li { display: flex; justify-content: space-between; gap: 12px; padding: 0.45rem 0; border-bottom: 1px solid var(--border); }
+.scale li span { color: var(--muted); }
+.tut-foot { display: flex; align-items: center; gap: 8px; margin-top: 1rem; }
+.dots { display: flex; gap: 6px; margin-right: auto; }
+.dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.dots span.on { background: var(--accent); }
+.result .verdict { font-size: 1.15rem; font-weight: 700; margin-top: 0.4rem; }
+.result .pts { font-size: 2rem; font-weight: 800; color: #16a34a; font-variant-numeric: tabular-nums; }
+.result .pts small { font-size: 0.9rem; font-weight: 600; }
+.result .facts { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 0.9rem; margin-top: 0.3rem; }
+.result .facts span { color: var(--muted); }
+.maplibregl-popup-content { background: var(--card); color: var(--fg); font: 0.85rem/1.35 system-ui, sans-serif; border-radius: 8px; padding: 6px 10px; }
+.maplibregl-popup-tip { border-top-color: var(--card) !important; border-bottom-color: var(--card) !important; }
+details a { color: var(--accent); }
+.credit { margin-top: 0.6rem; font-size: 0.75rem; color: var(--muted); }

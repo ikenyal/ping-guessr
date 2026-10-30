@@ -2,7 +2,7 @@
 
 Guess which AWS Region is behind a ping time.
 
-**Play:** https://main.d9yfexyaaygj6.amplifyapp.com
+**Play:** https://main.d9yfexyaaygj6.amplifyapp.com · **Demo video (2 min):** https://youtu.be/e_NYVXOEmB8
 
 Your browser times round trips to every AWS Region. Each round shows one of those times. Click the Region you think it was, then compare both Regions' real latencies. At the end you get a map of every Region, colored by how fast it answered you.
 

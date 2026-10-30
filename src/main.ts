@@ -19,7 +19,10 @@ const FIBER_KM_PER_MS = 200; // light in optical fiber, about 2/3 of c
 const HALF_EARTH_KM = 20000;
 const MS_SCALE = 40; // points halve roughly every 28 ms of difference
 const CONCURRENCY = 6;
-const HOME_VIEW = { center: [20, 25] as LngLat, zoom: 1.2 };
+const HOME_CENTER: LngLat = [20, 25];
+// Zoom at which the globe fills most of the viewport (about 760 px across at zoom 2).
+const globeZoom = () => 2 + Math.log2((Math.min(window.innerWidth, window.innerHeight) * 0.85) / 760);
+const homeView = () => ({ center: home ?? HOME_CENTER, zoom: globeZoom() });
 
 const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 const styleUrl =
@@ -38,7 +41,7 @@ const panel = $('panel');
 maplibregl.setWorkerUrl(workerUrl);
 
 const map = new maplibregl.Map({
-  container: 'map', style: styleUrl, center: HOME_VIEW.center, zoom: HOME_VIEW.zoom,
+  container: 'map', style: styleUrl, center: HOME_CENTER, zoom: globeZoom(),
   attributionControl: { compact: true },
 });
 const empty: FeatureCollection = { type: 'FeatureCollection', features: [] };
@@ -96,9 +99,9 @@ map.on('load', () => {
   }
   const stroke = dark ? '#0b0f17' : '#ffffff';
   map.addLayer({ id: 'circle-fill', type: 'fill', source: 'circle',
-    paint: { 'fill-color': '#2563eb', 'fill-opacity': 0.12 } });
+    paint: { 'fill-color': '#60a5fa', 'fill-opacity': 0.2 } });
   map.addLayer({ id: 'circle-edge', type: 'line', source: 'circle',
-    paint: { 'line-color': '#2563eb', 'line-width': 1.5, 'line-dasharray': [2, 2] } });
+    paint: { 'line-color': '#93c5fd', 'line-width': 2.5, 'line-dasharray': [2, 1.5] } });
   map.addLayer({ id: 'pick-line', type: 'line', source: 'line-pick',
     paint: { 'line-color': '#f59e0b', 'line-width': 2.5 } });
   map.addLayer({ id: 'answer-line', type: 'line', source: 'line-answer',
@@ -195,15 +198,13 @@ function updateHint() {
   if (!home) {
     ui.hint.textContent = `${reach} Optional: “Set my location” draws that limit on the map.`;
     setData('circle', empty);
-  } else if (r >= HALF_EARTH_KM) {
-    ui.hint.textContent = `${where}${reach} That covers the whole planet. No help this time.`;
+  } else if (r >= HALF_EARTH_KM || km(home, [0, 90]) < r || km(home, [0, -90]) < r) {
+    // A circle this big wraps over a pole and covers most of the planet: say so instead of drawing it.
+    ui.hint.textContent = `${where}${reach} That covers most of the planet, so no circle this time.`;
     setData('circle', empty);
   } else {
     ui.hint.textContent = `${where}${reach} The Region must be inside the blue circle.`;
-    const c = circle(home, r, { steps: 128, units: 'kilometers' });
-    const ring = c.geometry.coordinates[0];
-    for (let i = 1; i < ring.length; i++) ring[i][0] = unwrap(ring[i - 1][0], ring[i][0]);
-    setData('circle', c);
+    setData('circle', circle(home, r, { steps: 128, units: 'kilometers' }));
   }
 }
 
@@ -268,7 +269,7 @@ function nextRound() {
   setClue(`${current.ms} ms`, true);
   setTodo('Which AWS Region answered in this time? Click a dot on the map.');
   updateHint();
-  map.easeTo(HOME_VIEW);
+  map.easeTo(homeView());
 }
 
 function choose(r: Measured) {
@@ -346,7 +347,7 @@ function finish() {
   ui.hint.textContent = '';
   setData('circle', empty);
   showHeat(true);
-  map.easeTo(HOME_VIEW);
+  map.easeTo(homeView());
   ui.result.innerHTML = `
     <div class="verdict">Your latency map</div>
     <p class="hint">Every dot is an AWS Region, colored by how long it took to answer you:
